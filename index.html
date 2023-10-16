@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Numbers</title>
+    <!-- Styling Tag -->
+    <style>
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        font-size: 24px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Unordered List -->
+    <ul id="numberList"></ul>
+
+    <!-- JavaScript Tag -->
+    <script>
+      class Numbers {
+        constructor(data) {
+          if (typeof data === "string") {
+            this.data = data.split(",").map((number) => parseInt(number, 10));
+          } else {
+            this.data = data;
+          }
+        }
+
+        count() {
+          return this.data.length;
+        }
+
+        printNumbers() {
+          this.data.forEach((num, index) => {
+            const li = document.createElement("li");
+            li.innerText = `Index ${index}: ${num}`;
+            document.getElementById("numberList").appendChild(li);
+          });
+        }
+
+        odds() {
+          return this.data.filter((num) => num % 2 !== 0);
+        }
+
+        evens() {
+          return this.data.filter((num) => num % 2 === 0);
+        }
+
+        sum() {
+          return this.data.reduce((acc, num) => acc + num, 0);
+        }
+
+        product() {
+          return this.data.reduce((acc, num) => acc * num, 1);
+        }
+
+        greaterThan(target) {
+          return this.data.filter((num) => num > target);
+        }
+
+        howMany(target) {
+          return this.data.filter((num) => num === target).length;
+        }
+      }
+
+      const str = window.prompt(
+        "Enter some numbers, like this:",
+        "1,2,3,3,5,9"
+      );
+      const n1 = new Numbers(str);
+
+      console.log(n1.count());
+      n1.printNumbers();
+      console.log(n1.odds());
+      console.log(n1.evens());
+      console.log(n1.sum());
+      console.log(n1.product());
+      console.log(n1.greaterThan(3));
+      console.log(n1.howMany(3));
+
+      // Use setInterval to add random numbers
+      let counter = 0;
+      let intervalId = setInterval(() => {
+        if (counter >= 10) {
+          clearInterval(intervalId);
+        } else {
+          let randomNum = Math.floor(Math.random() * 100);
+          n1.data.push(randomNum);
+          const li = document.createElement("li");
+          li.innerText = `Random Index ${counter}: ${randomNum}`;
+          document.getElementById("numberList").appendChild(li);
+          counter++;
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
