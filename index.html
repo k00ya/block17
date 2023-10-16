@@ -1,56 +1,90 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Numbers</title>
-  <style>
-    ul { padding: 0; }
-    li { font-size: 24px; margin: 5px; }
-  </style>
-</head>
-<body>
-  <ul id="numberList"></ul>
-  <script>
-    class Numbers {
-      constructor(data) {
-        this.data = typeof data === "string" ? data.split(",").map(Number) : data;
+  <head>
+    <title>Numbers</title>
+    <style>
+      ul {
+        padding: 0;
       }
-      count() { return this.data.length; }
-      printNumbers() {
-        this.data.forEach((num, i) => {
-          const li = document.createElement("li");
-          li.innerText = `Index ${i}: ${num}`;
-          document.getElementById("numberList").appendChild(li);
-        });
+      li {
+        font-size: 24px;
+        margin: 5px;
       }
-      odds() { return this.data.filter(num => num % 2); }
-      evens() { return this.data.filter(num => !(num % 2)); }
-      sum() { return this.data.reduce((acc, num) => acc + num, 0); }
-      product() { return this.data.reduce((acc, num) => acc * num, 1); }
-      greaterThan(t) { return this.data.filter(num => num > t); }
-      howMany(t) { return this.data.filter(num => num === t).length; }
-    }
+    </style>
+  </head>
+  <body>
+    <ul id="numberList"></ul>
+    <script>
+      class Numbers {
+        constructor(data) {
+          this.data =
+            typeof data === "string" ? data.split(",").map(Number) : data;
+        }
+        count() {
+          return this.data.length;
+        }
+        printNumbers() {
+          this.data.forEach((num, i) => {
+            const li = document.createElement("li");
+            li.innerText = `Index ${i}: ${num}`;
+            document.getElementById("numberList").appendChild(li);
+          });
+        }
+        // Method to return an array containing only the odd numbers from the "data" array
+        odds() {
+          return this.data.filter((num) => num % 2);
+        }
 
-    const str = window.prompt("Enter some numbers, like this:", "1,2,3,3,5,9");
-    const n1 = new Numbers(str);
-    console.log(n1.count());
-    n1.printNumbers();
-    console.log(n1.odds());
-    console.log(n1.evens());
-    console.log(n1.sum());
-    console.log(n1.product());
-    console.log(n1.greaterThan(3));
-    console.log(n1.howMany(3));
+        // Method to return an array containing only the even numbers from the "data" array
+        evens() {
+          return this.data.filter((num) => !(num % 2));
+        }
 
-    let counter = 0;
-    let intervalId = setInterval(() => {
-      if (counter >= 10) return clearInterval(intervalId);
-      const randomNum = Math.floor(Math.random() * 100);
-      n1.data.push(randomNum);
-      const li = document.createElement("li");
-      li.innerText = `Random Index ${counter}: ${randomNum}`;
-      document.getElementById("numberList").appendChild(li);
-      counter++;
-    }, 1000);
-  </script>
-</body>
+        // Method to return the sum of all numbers in the "data" array
+        sum() {
+          return this.data.reduce((acc, num) => acc + num, 0);
+        }
+
+        // Method to return the product of all numbers in the "data" array
+        product() {
+          return this.data.reduce((acc, num) => acc * num, 1);
+        }
+
+        // Method to return an array of numbers from the "data" array that are greater than a threshold "t"
+        greaterThan(t) {
+          return this.data.filter((num) => num > t);
+        }
+
+        // Method to return the count of numbers in the "data" array that are equal to a specific value "t"
+        howMany(t) {
+          return this.data.filter((num) => num === t).length;
+        }
+      }
+
+      const str = window.prompt(
+        "Enter some numbers, like this:",
+        "1,2,3,3,5,9"
+      );
+      const n1 = new Numbers(str);
+      console.log(n1.count());
+      n1.printNumbers();
+      console.log(n1.odds());
+      console.log(n1.evens());
+      console.log(n1.sum());
+      console.log(n1.product());
+      console.log(n1.greaterThan(3));
+      console.log(n1.howMany(3));
+
+      let counter = 0;
+      let intervalId = setInterval(() => {
+        if (counter >= 10) return clearInterval(intervalId);
+        const randomNum = Math.floor(Math.random() * 100);
+        n1.data.push(randomNum);
+        const li = document.createElement("li");
+        li.innerText = `Random Index ${counter}: ${randomNum}`;
+        document.getElementById("numberList").appendChild(li);
+        counter++;
+      }, 1000);
+    </script>
+  </body>
 </html>
